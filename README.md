@@ -1,8 +1,6 @@
-# nexa_backend
+## Nexa
 
-## Controle Financeiro Pessoal -> Nexa
-
-Funções:
+### Levantamento de requisitos:
 1. Registrar Receitas e Despesas
 2. Visualizar Relatórios Financeiros
 3. Cadastro e Autenticação de Usuários
