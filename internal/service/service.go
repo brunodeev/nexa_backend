@@ -2,7 +2,7 @@ package service
 
 import "github.com/gofiber/fiber/v2"
 
-func HostServer() {
+func StartServer() {
 	app := fiber.New()
 
 	app.Get("/hello-world", func(c *fiber.Ctx) error {

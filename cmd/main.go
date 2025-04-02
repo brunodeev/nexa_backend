@@ -11,11 +11,11 @@ import (
 
 func main() {
 	err := godotenv.Load()
-
 	if err != nil {
 		log.Fatalf("ocorreu um erro ao carregar o .env: %v", err)
 	}
+
 	database.ConnectDB()
 	fmt.Println("Deu bom a conexão do DB")
-	service.HostServer()
+	service.StartServer()
 }
