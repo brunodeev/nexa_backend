@@ -5,15 +5,27 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/jackc/pgx/v5"
 )
 
-func ConnectDB() {
-	DB_URI := os.Getenv("DB_URI")
+var DB *pgx.Conn
 
-	conn, err := pgx.Connect(context.Background(), DB_URI)
+func ConnectDB() {
+	err := godotenv.Load("internal/database/.env")
 	if err != nil {
-		log.Fatalf("ocorreu um erro ao carregar o .env: %v", err)
+		log.Println("Aviso: Nenhum arquivo .env foi carregado, usando variáveis do sistema")
 	}
-	defer conn.Close(context.Background())
+
+	DB_URI := os.Getenv("DB_URI")
+	if DB_URI == "" {
+		log.Fatal("Erro: A variável de ambiente DB_URI não está definida")
+	}
+
+	DB, err = pgx.Connect(context.Background(), DB_URI)
+	if err != nil {
+		log.Fatalf("Erro ao conectar ao banco de dados: %v", err)
+	}
+
+	log.Println("Banco de dados conectado com sucesso!")
 }
