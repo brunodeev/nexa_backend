@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 
@@ -13,7 +14,9 @@ func ConnectDB() {
 
 	conn, err := pgx.Connect(context.Background(), DB_URI)
 	if err != nil {
-		log.Fatalf("ocorreu um erro ao carregar o .env: %v", err)
+		log.Fatalf("failed to connect to database: %v", err)
 	}
 	defer conn.Close(context.Background())
+
+	fmt.Println("Database connection successful.")
 }
