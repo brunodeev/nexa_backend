@@ -15,8 +15,8 @@ func NewUserFactory() *UserFactory {
 
 func (uf *UserFactory) CreateUser(user model.User) *model.User {
 	user.ID = uuid.New()
-	user.CreatedAt = time.Now()
-	user.UpdatedAt = time.Now()
+	user.CreatedAt = time.Now().Truncate(time.Second)
+	user.UpdatedAt = time.Now().Truncate(time.Second)
 
 	return &user
 }

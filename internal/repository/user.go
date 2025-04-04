@@ -33,3 +33,22 @@ func (ur *UserRepository) InsertUser(user *model.User) error {
 
 	return nil
 }
+
+func (ur *UserRepository) GetUsers() ([]model.User, error) {
+	rows, err := ur.Conn.Query(context.Background(), `SELECT id, name, email, created_at, updated_at FROM "user"`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var users []model.User
+	for rows.Next() {
+		var user model.User
+		if err := rows.Scan(&user.ID, &user.Name, &user.Email, &user.CreatedAt, &user.UpdatedAt); err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	return users, nil
+}

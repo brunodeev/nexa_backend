@@ -40,24 +40,14 @@ func (uh *UserHandler) CreateUser(c *fiber.Ctx) error {
 	return c.Status(201).JSON(user)
 }
 
-// func (uh *UserHandler) GetUsers(c *fiber.Ctx) error {
-// 	rows, err := database.DB.Query(context.Background(), "SELECT id, name, email, created_at, updated_at FROM users")
-// 	if err != nil {
-// 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Erro ao buscar usuários"})
-// 	}
-// 	defer rows.Close()
+func (uh *UserHandler) GetUsers(c *fiber.Ctx) error {
+	users, err := uh.UserRepository.GetUsers()
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
 
-// 	var users []model.User
-// 	for rows.Next() {
-// 		var user model.User
-// 		if err := rows.Scan(&user.ID, &user.Name, &user.Email, &user.CreatedAt, &user.UpdatedAt); err != nil {
-// 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Erro ao processar usuários"})
-// 		}
-// 		users = append(users, user)
-// 	}
-
-// 	return c.JSON(users)
-// }
+	return c.Status(200).JSON(users)
+}
 
 // func (uh *UserHandler) GetUserByID(c *fiber.Ctx) error {
 // 	id := c.Params("id")

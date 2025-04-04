@@ -13,7 +13,7 @@ func StartServer(conn *pgx.Conn) {
 	api := app.Group("/api/users")
 
 	api.Post("/", uh.CreateUser)
-	// api.Get("/", handler.GetUsers)
+	api.Get("/", uh.GetUsers)
 	// api.Get("/:id", handler.GetUserByID)
 	// api.Put("/:id", handler.UpdateUser)
 	// api.Delete("/:id", handler.DeleteUser)
