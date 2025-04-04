@@ -11,5 +11,6 @@ type Category struct {
 	UserID    uuid.UUID `json:"user_id" db:"user_id"`
 	Name      string    `json:"name" db:"name"`
 	Type      string    `json:"type" db:"type"`
+	Budget    float32   `json:"budget" db:"budget"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 }
