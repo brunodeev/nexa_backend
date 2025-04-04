@@ -32,7 +32,7 @@ func (uh *UserHandler) CreateUser(c *fiber.Ctx) error {
 
 	user := uh.UserFactory.CreateUser(*body)
 
-	err := uh.UserRepository.InsertUser(*user)
+	err := uh.UserRepository.InsertUser(user)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
 	}

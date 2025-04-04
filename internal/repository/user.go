@@ -18,8 +18,8 @@ func NewUserRepository(conn *pgx.Conn) *UserRepository {
 	}
 }
 
-func (ur *UserRepository) InsertUser(user model.User) error {
-	query := `INSERT INTO user (id, name, email, password, created_at, updated_at)
+func (ur *UserRepository) InsertUser(user *model.User) error {
+	query := `INSERT INTO "user" (id, name, email, password, created_at, updated_at)
 	          VALUES ($1, $2, $3, $4, $5, $6)`
 
 	_, err := ur.Conn.Exec(

@@ -1,15 +1,22 @@
 package service
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"nexa/internal/handler"
 
-func StartServer() {
+	"github.com/gofiber/fiber/v2"
+	"github.com/jackc/pgx/v5"
+)
+
+func StartServer(conn *pgx.Conn) {
 	app := fiber.New()
+	uh := handler.NewUserHandler(conn)
+	api := app.Group("/api/users")
 
-	app.Get("/hello-world", func(c *fiber.Ctx) error {
-		return c.Status(200).JSON(fiber.Map{
-			"message": "hello world!",
-		})
-	})
+	api.Post("/", uh.CreateUser)
+	// api.Get("/", handler.GetUsers)
+	// api.Get("/:id", handler.GetUserByID)
+	// api.Put("/:id", handler.UpdateUser)
+	// api.Delete("/:id", handler.DeleteUser)
 
 	app.Listen(":8080")
 }

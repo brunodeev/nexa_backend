@@ -8,6 +8,6 @@ import (
 
 func main() {
 	utils.LoadEnv()
-	database.ConnectDB()
-	service.StartServer()
+	conn := database.ConnectDB()
+	service.StartServer(conn)
 }
