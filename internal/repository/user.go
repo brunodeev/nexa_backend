@@ -1,10 +1,11 @@
 package repository
 
 import (
+	"context"
 	"fmt"
 	"nexa/internal/model"
 
-	"github.com/jackc/pgx"
+	"github.com/jackc/pgx/v5"
 )
 
 type UserRepository struct {
@@ -22,6 +23,7 @@ func (ur *UserRepository) InsertUser(user model.User) error {
 	          VALUES ($1, $2, $3, $4, $5, $6)`
 
 	_, err := ur.Conn.Exec(
+		context.Background(),
 		query,
 		user.ID, user.Name, user.Email, user.Password, user.CreatedAt, user.UpdatedAt,
 	)
